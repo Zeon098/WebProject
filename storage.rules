@@ -1,0 +1,23 @@
+// Firebase Storage Security Rules
+// These rules allow authenticated users to upload and read their own images
+
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Allow users to upload images to their own folder
+    match /users/{userId}/{allPaths=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Allow users to upload to the users folder with any filename (current setup)
+    match /users/{allPaths=**} {
+      allow read, write: if request.auth != null;
+    }
+    
+    // Allow public read access to homes images
+    match /homes/{allPaths=**} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+  }
+}

@@ -1,16 +1,14 @@
 <template>
   <div
-    class="absolute inset-0 h-full bg-black bg-opacity-25 px-40 pt-20 z-50 shadow-xl flex justify-center overflow-hidden"
+    class="fixed inset-0 bg-transparent backdrop-blur-sm z-50 flex justify-center items-start pt-20 overflow-y-auto"
     @click="handleClick()"
   >
     <div
-      class="fixed top-20 overflow-hidden w-1/3 px-32 pt-8 mx-40 pb-14 mb-auto bg-white rounded-2xl"
+      class="w-1/3 max-w-md px-8 pt-8 pb-14 bg-white rounded-2xl shadow-2xl mx-4 my-8"
       @click="(e) => e.stopPropagation()"
     >
-      <div
-        class="flex items-center justify-center relative bottom-4 right-24 w-6 h-6 rounded-full hover:bg-athens-gray p-4"
-      >
-        <span class="cursor-pointer" @click="handleClick()">
+      <div class="flex justify-end mb-4">
+        <span class="cursor-pointer p-2 hover:bg-athens-gray rounded-full" @click="handleClick()">
           <svg
             width="24"
             height="24"

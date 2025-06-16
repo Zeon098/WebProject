@@ -5,11 +5,14 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "seed": "node scripts/seed.ts"
   },
   "devDependencies": {
     "@types/mapbox-gl": "^3.4.1",
-    "nuxt": "3.17.4"
+    "dotenv": "^16.5.0",
+    "nuxt": "3.17.4",
+    "tsx": "^4.20.3"
   },
   "dependencies": {
     "@nuxtjs/algolia": "^1.11.2",

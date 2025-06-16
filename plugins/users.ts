@@ -1,10 +1,12 @@
 import algoliasearch from "algoliasearch";
 
 import type User from "~/types/user";
+import type { AlgoliaUser } from "~/types/algolia";
 import { useAuthStore } from "~/store/auth";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { result, search } = useAlgoliaSearch("Users");
+  const config = useRuntimeConfig();
 
   nuxtApp.provide("getUserByHomeId", async (homeId: string) => {
     const requestOptions = {
@@ -19,12 +21,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       query: "",
     };
     await search(requestOptions);
-    return result.value.hits[0];
+    return result.value.hits[0] as AlgoliaUser;
   });
 
   const client = algoliasearch(
-    "EPY4Z8GR7F",
-    "adaa4dc231574144262554442d5a338d"
+    config.public.algolia?.applicationId || '',
+    config.public.algolia?.apiKey || ''
   );
   const index = client.initIndex("Users");
   nuxtApp.provide("addUser", async (user: User) => {
@@ -51,14 +53,14 @@ export default defineNuxtPlugin((nuxtApp) => {
       return null;
     }
     return {
-      objectID: result.value.hits[0].objectID,
-      name: result.value.hits[0].name,
-      email: result.value.hits[0].email,
-      image: result.value.hits[0].image,
-      joined: result.value.hits[0].joined,
-      homeId: result.value.hits[0].homeId,
-      reviewCount: result.value.hits[0].reviewCount,
-      description: result.value.hits[0].description,
+      objectID: (result.value.hits[0] as any).objectID,
+      name: (result.value.hits[0] as any).name,
+      email: (result.value.hits[0] as any).email,
+      image: (result.value.hits[0] as any).image,
+      joined: (result.value.hits[0] as any).joined,
+      homeId: (result.value.hits[0] as any).homeId,
+      reviewCount: (result.value.hits[0] as any).reviewCount,
+      description: (result.value.hits[0] as any).description,
     };
   });
 
@@ -76,23 +78,14 @@ export default defineNuxtPlugin((nuxtApp) => {
         "description",
       ],
     };
-    index
-      .partialUpdateObject(user)
-      .wait()
-      .then(() => {
-        client.clearCache();
-        index.search("", requestOptions).then((res) => {
-          authStore.setUser({
-            objectID: res.hits[0].objectID,
-            name: res.hits[0].name,
-            email: res.hits[0].email,
-            image: res.hits[0].image,
-            joined: res.hits[0].joined,
-            homeId: res.hits[0].homeId,
-            reviewCount: res.hits[0].reviewCount,
-            description: res.hits[0].description,
-          });
-        });
-      });
+    
+    // Update in Algolia but don't wait for the response to avoid overwriting local changes
+    index.partialUpdateObject(user).then(() => {
+      client.clearCache();
+      // Don't automatically fetch and overwrite - let the auth store handle local updates
+      console.log('User updated in Algolia successfully');
+    }).catch((error) => {
+      console.warn('Failed to update user in Algolia:', error);
+    });
   });
 });

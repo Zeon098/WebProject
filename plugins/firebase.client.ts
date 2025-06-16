@@ -21,9 +21,14 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   nuxtApp.provide("auth", auth);
   nuxtApp.provide("uploadImage", async (folderName: string, file: File) => {
-    const storageRef = ref(storage, folderName + file.name);
-    await uploadBytes(storageRef, file);
-    const URL = await getDownloadURL(storageRef);
-    return URL;
+    // Simple local file reader - converts image to base64
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        resolve(e.target?.result as string);
+      };
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
   });
 });

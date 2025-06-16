@@ -1,8 +1,8 @@
 <template>
-  <div class="max-w-4xl px-20 my-10 font-normal" v-if="homes">
+  <div class="max-w-7xl px-8 my-16 font-normal mx-auto" v-if="homes">
     <h1 class="gradient-text">Search a best place</h1>
-    <div v-if="homes" class="w-full grid grid-cols-6 gap-2.5 align-middle">
-      <div v-for="home in homes" :key="home.objectID">
+    <div v-if="homes" class="w-full grid grid-cols-4 gap-6 align-middle">
+      <div v-for="home in homes" :key="home.objectID" class="transform transition-all duration-300 hover:scale-105 hover:shadow-xl">
         <nuxt-link :to="`/home/${home.objectID}`">
           <home-card :home="home" />
         </nuxt-link>

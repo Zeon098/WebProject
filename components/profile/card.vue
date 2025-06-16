@@ -2,8 +2,11 @@
   <div class="w-full wrapper py-5 px-14 flex flex-col items-center gap-6">
     <div class="w-full flex flex-col gap-3 items-center">
       <span
-        ><img :src="`${authStore.imageUrl}`" class="rounded-full w-32 h-32"
-      /></span>
+        ><img 
+          :src="`${authStore.imageUrl}`" 
+          class="rounded-full w-32 h-32 object-cover border-4 border-gray-200 shadow-lg"
+          :alt="`${authStore.name}'s avatar`"
+        /></span>
       <span class="font-medium">{{ authStore.name }}</span>
     </div>
     <div class="flex w-full flex-col gap-8">

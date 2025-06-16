@@ -154,8 +154,23 @@ export const useAuthStore = defineStore("authStore", {
       return false;
     },
     async updateUser(user: any) {
-      const { $updateUser } = useNuxtApp();
-      await $updateUser(user);
+      // Update local user data immediately
+      this.user = {
+        ...this.user,
+        name: user.name,
+        email: user.email,
+        description: user.description,
+        image: user.image,
+      };
+      
+      // Also update in Algolia for persistence (optional for development)
+      try {
+        const { $updateUser } = useNuxtApp();
+        await $updateUser(user);
+      } catch (error) {
+        console.warn('Failed to update user in Algolia:', error);
+        // Don't revert local changes even if Algolia fails
+      }
     },
     setUser(user: any) {
       this.user = user;

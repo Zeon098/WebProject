@@ -2,6 +2,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  compatibilityDate: '2025-06-14',
   modules: [
     [
       "@nuxtjs/algolia",
@@ -33,6 +34,10 @@ export default defineNuxtConfig({
   runtimeConfig: {
     stripeSecret: process.env.STRIPE_SECRET,
     public: {
+      algolia: {
+        applicationId: process.env.ALGOLIA_APP_ID,
+        apiKey: process.env.ALGOLIA_API_KEY,
+      },
       mapbox: {
         accessToken: process.env.MAPBOX_ACCESS_TOKEN,
       },

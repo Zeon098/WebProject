@@ -1,27 +1,32 @@
 import algoliasearch from "algoliasearch";
+import type { AlgoliaHome } from "~/types/algolia";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const { result, search } = useAlgoliaSearch("Homes");
+  const config = useRuntimeConfig();
   let id = 0;
   const client = algoliasearch(
-    "EPY4Z8GR7F",
-    "adaa4dc231574144262554442d5a338d"
+    config.public.algolia?.applicationId || '',
+    config.public.algolia?.apiKey || ''
   );
   const index = client.initIndex("Homes");
 
   nuxtApp.provide("getHomes", async () => {
     await search({ query: "" });
-    return result.value.hits;
+    return result.value.hits as AlgoliaHome[];
   });
 
   nuxtApp.provide("getHomeById", async (id: string) => {
     const requestOptions = {
-      filters: `objectID:${id}`,
+      filters: `objectID:"${id}"`,
       query: "",
     };
     await search(requestOptions);
-
-    return result.value.hits[0];
+    
+    // Find the specific home by objectID since Algolia filter might not work as expected
+    const foundHome = result.value.hits.find((hit: any) => hit.objectID === id);
+    
+    return foundHome as AlgoliaHome;
   });
 
   nuxtApp.provide(
@@ -35,7 +40,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         query: "",
       };
       await search(requestOptions);
-      return { data: result.value.hits, nbPages: result.value.nbPages };
+      return { data: result.value.hits as AlgoliaHome[], nbPages: result.value.nbPages };
     }
   );
   nuxtApp.provide("addHome", (home: any) => {
