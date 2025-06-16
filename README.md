@@ -1,7 +1,10 @@
-<<<<<<< HEAD
 # 🏨 Hotel Management System - PakBnb
 
 A comprehensive hotel and property management system built with modern web technologies. This project provides a complete solution for managing hotel bookings, property listings, user authentication, and interactive maps.
+
+**Author:** Abdul Rehman  
+**Contact:** abdulrehmanlatif98@gmail.com  
+**Repository:** https://github.com/Zeon098/WebProject
 
 ## 🚀 Project Overview
 

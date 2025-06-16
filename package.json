@@ -1,4 +1,8 @@
 {
+  "name": "pakbnb-hotel-management",
+  "version": "1.0.0",
+  "description": "A comprehensive hotel and property management system",
+  "author": "Abdul Rehman <abdulrehmanlatif98@gmail.com>",
   "private": true,
   "scripts": {
     "build": "nuxt build",
