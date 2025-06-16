@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏨 Hotel Management System - PakBnb
 
 A comprehensive hotel and property management system built with modern web technologies. This project provides a complete solution for managing hotel bookings, property listings, user authentication, and interactive maps.
@@ -196,7 +197,6 @@ Locally preview production build:
 
 ```bash
 npm run preview
-yarn preview
-```
+---
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+**Note:** This is a comprehensive hotel management system demonstrating modern web development practices including responsive design, real-time search, payment integration, and user management.
