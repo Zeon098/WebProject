@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-25"
+    class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50"
     @click="handleClick"
   >
     <div

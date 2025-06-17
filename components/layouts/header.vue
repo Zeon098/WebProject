@@ -8,7 +8,7 @@
     >
       <nuxt-link to="/" class="flex items-center">
         <img src="~/assets/images/logo.png" alt="" />
-        <span>pakbnb</span>
+        <span>Continentals</span>
       </nuxt-link>
     </div>
     <nav

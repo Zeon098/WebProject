@@ -139,7 +139,7 @@ const suggestions = ref([
 const aiResponses = {
   'booking': {
     keywords: ['book', 'reservation', 'reserve', 'booking process'],
-    response: 'To book a property on PakBnB: 1) Search for your destination and dates, 2) Browse available properties, 3) Select your preferred accommodation, 4) Click "Book Now" and provide guest details and payment information. Your booking will be confirmed instantly!'
+    response: 'To book a property on Continentals: 1) Search for your destination and dates, 2) Browse available properties, 3) Select your preferred accommodation, 4) Click "Book Now" and provide guest details and payment information. Your booking will be confirmed instantly!'
   },
   'cancellation': {
     keywords: ['cancel', 'cancellation', 'refund', 'policy'],
@@ -155,7 +155,7 @@ const aiResponses = {
   },
   'support': {
     keywords: ['support', 'help', 'contact', 'customer service'],
-    response: 'You can reach our 24/7 customer support through: Live chat (right here!), Email: support@pakbnb.com, Phone: +92-XXX-XXXXXXX (9 AM - 6 PM PKT). We\'re always here to help!'
+    response: 'You can reach our 24/7 customer support through: Live chat (right here!), Email: support@continentals.com, Phone: +92-XXX-XXXXXXX (9 AM - 6 PM PKT). We\'re always here to help!'
   },
   'account': {
     keywords: ['account', 'profile', 'login', 'sign up', 'register'],
@@ -214,19 +214,19 @@ const generateAIResponse = (question) => {
 
   // Default responses for common greetings
   if (lowerQuestion.includes('hello') || lowerQuestion.includes('hi') || lowerQuestion.includes('hey')) {
-    return 'Hello! Welcome to PakBnB support. I\'m here to help you with any questions about bookings, hosting, payments, or general inquiries. How can I assist you today?'
+    return 'Hello! Welcome to Continentals support. I\'m here to help you with any questions about bookings, hosting, payments, or general inquiries. How can I assist you today?'
   }
 
   if (lowerQuestion.includes('thank') || lowerQuestion.includes('thanks')) {
-    return 'You\'re welcome! I\'m glad I could help. Is there anything else you\'d like to know about PakBnB?'
+    return 'You\'re welcome! I\'m glad I could help. Is there anything else you\'d like to know about Continentals?'
   }
 
   if (lowerQuestion.includes('bye') || lowerQuestion.includes('goodbye')) {
-    return 'Goodbye! Thank you for using PakBnB. If you need any more help, feel free to chat with me anytime. Have a great day!'
+    return 'Goodbye! Thank you for using Continentals. If you need any more help, feel free to chat with me anytime. Have a great day!'
   }
 
   // Default fallback response
-  return 'I understand you\'re asking about "' + question + '". While I try to help with most questions, you might want to contact our human support team for more specific assistance. You can reach them via email at support@pakbnb.com or phone at +92-XXX-XXXXXXX. Is there anything else I can help you with?'
+  return 'I understand you\'re asking about "' + question + '". While I try to help with most questions, you might want to contact our human support team for more specific assistance. You can reach them via email at support@continentals.com or phone at +92-XXX-XXXXXXX. Is there anything else I can help you with?'
 }
 
 const formatTime = (timestamp) => {
@@ -251,7 +251,7 @@ onMounted(() => {
   // Welcome message
   messages.value.push({
     sender: 'ai',
-    text: 'Hi there! 👋 I\'m your AI assistant for PakBnB. I can help you with bookings, hosting questions, payment info, and more. What would you like to know?',
+    text: 'Hi there! 👋 I\'m your AI assistant for Continentals. I can help you with bookings, hosting questions, payment info, and more. What would you like to know?',
     timestamp: new Date()
   })
   scrollToBottom()

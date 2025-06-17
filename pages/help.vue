@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
     <!-- Hero Section -->
-    <div class="bg-gradient-to-r from-blue-600 to-purple-700 text-white">
+    <div class="bg-gradient-to-r from-orange-600 to-white-700 text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="text-center">
           <h1 class="text-4xl md:text-5xl font-bold mb-4">
@@ -205,7 +205,7 @@ import { ref, computed, onMounted } from 'vue'
 
 // Meta
 definePageMeta({
-  title: 'Help & Support - PakBnB'
+  title: 'Help & Support - Continentals'
 })
 
 // Reactive data
@@ -219,7 +219,7 @@ const helpCategories = ref([
   {
     id: 1,
     title: 'Getting Started',
-    description: 'Learn the basics of using PakBnB',
+    description: 'Learn the basics of using Continentals',
     articleCount: 12,
     icon: 'PlayIcon',
     iconBg: 'bg-blue-500'
@@ -278,7 +278,7 @@ const faqs = ref([
   },
   {
     question: 'How do I contact customer support?',
-    answer: 'You can reach our customer support team through live chat (available 24/7), email at support@pakbnb.com, or phone at +92-XXX-XXXXXXX during business hours (9 AM - 6 PM PKT).'
+    answer: 'You can reach our customer support team through live chat (available 24/7), email at support@continentals.com, or phone at +92-XXX-XXXXXXX during business hours (9 AM - 6 PM PKT).'
   },
   {
     question: 'What if I have issues during my stay?',

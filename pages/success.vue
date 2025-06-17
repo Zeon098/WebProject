@@ -51,6 +51,6 @@ definePageMeta({
 });
 
 useHead({
-  title: 'Payment Successful - PakBnB'
+  title: 'Payment Successful - Continentals'
 });
 </script>

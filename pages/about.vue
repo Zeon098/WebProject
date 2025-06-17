@@ -1,7 +1,7 @@
 <template>
   <div class="max-w-4xl mx-auto px-4 py-12">
     <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold gradient-text mb-4">About PakBnB</h1>
+      <h1 class="text-4xl font-bold gradient-text mb-4">About Continentals</h1>
       <p class="text-xl text-gray-600 max-w-2xl mx-auto">
         Discover unique stays and experiences across Pakistan with our trusted home-sharing platform
       </p>
@@ -11,7 +11,7 @@
       <div>
         <h2 class="text-2xl font-bold mb-4">Our Story</h2>
         <p class="text-gray-600 mb-4">
-          PakBnB is a premier home-sharing platform designed specifically for Pakistan. We connect 
+          Continentals is a premier home-sharing platform designed specifically for Pakistan. We connect 
           travelers with unique accommodations and local hosts, creating memorable experiences across 
           the country's diverse landscapes and rich cultural heritage.
         </p>
@@ -26,7 +26,7 @@
         </p>
       </div>
       <div class="bg-gray-100 rounded-lg p-8">
-        <h3 class="text-xl font-semibold mb-4">Why Choose PakBnB?</h3>
+        <h3 class="text-xl font-semibold mb-4">Why Choose Continentals?</h3>
         <ul class="space-y-3">
           <li class="flex items-start">
             <span class="text-primary mr-2">✓</span>
@@ -56,7 +56,7 @@
       <h3 class="text-2xl font-bold mb-4">Join Our Community</h3>
       <p class="text-gray-600 mb-6">
         Whether you're a traveler seeking unique experiences or a host looking to share your space, 
-        PakBnB is here to make your journey memorable.
+        Continentals is here to make your journey memorable.
       </p>
       <div class="flex gap-4 justify-center">
         <NuxtLink to="/" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary/90 transition-colors">
@@ -76,9 +76,9 @@ definePageMeta({
 });
 
 useHead({
-  title: 'About Us - PakBnB',
+  title: 'About Us - Continentals',
   meta: [
-    { name: 'description', content: 'Learn about PakBnB - Pakistan\'s premier home-sharing platform connecting travelers with unique accommodations and local hosts.' }
+    { name: 'description', content: 'Learn about Continentals - Pakistan\'s premier home-sharing platform connecting travelers with unique accommodations and local hosts.' }
   ]
 });
 </script>
