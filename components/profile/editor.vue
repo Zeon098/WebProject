@@ -71,43 +71,86 @@
     </form>
   </div>
   
-  <button
-    class="p-3 m-2 rounded-lg text-white font-medium gradient hover:bg-white hover:gradient-text hover:border-1 hover:border-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-    @click="handleClick"
-    :disabled="isSaving || isUploading"
-  >
-    <div v-if="isSaving" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-    {{ isSaving ? 'Saving...' : 'Save profile' }}
-  </button>
+  <div class="flex gap-2 p-2">
+    <button
+      class="flex-1 p-3 rounded-lg text-white font-medium gradient hover:bg-white hover:gradient-text hover:border-1 hover:border-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+      @click="handleClick"
+      :disabled="isSaving || isUploading"
+    >
+      <div v-if="isSaving" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+      {{ isSaving ? 'Saving...' : 'Save profile' }}
+    </button>
+    
+    <button
+      class="flex-1 p-3 rounded-lg text-gray-600 font-medium bg-gray-200 hover:bg-gray-300 border-1 border-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+      @click="emits('cancel-edit')"
+      :disabled="isSaving || isUploading"
+    >
+      Cancel
+    </button>
+  </div>
 </template>
 
 <script lang="ts" setup>
   import { useAuthStore } from "~/store/auth";
 
+  // Define props
+  const props = defineProps<{
+    userData?: {
+      objectID: string;
+      name: string;
+      email: string;
+      image: string;
+      joined: Date;
+      reviewCount: number;
+      description: string;
+      homeId: string[];
+    };
+  }>();
+
   const authStore = useAuthStore();
   const { $uploadImage } = useNuxtApp();
 
-  const name = ref(authStore.name);
-  const email = ref(authStore.email);
-  const description = ref(authStore.description);
-  const imageUrl = ref(authStore.imageUrl);
+  // Use user data from props if available, otherwise fallback to auth store
+  const name = ref(props.userData?.name || authStore.name || '');
+  const email = ref(props.userData?.email || authStore.email || '');
+  const description = ref(props.userData?.description || authStore.description || '');
+  const imageUrl = ref(props.userData?.image || authStore.imageUrl || '');
+  
   const isUploading = ref(false);
   const uploadMessage = ref('');
   const fileInput = ref<HTMLInputElement>();
   const isSaving = ref(false);
   const saveSuccess = ref(false);
 
-  authStore.$onAction(({ name, args, after, onError }) => {
+  // Define emits
+  const emits = defineEmits<{
+    (e: "save-profile", userData: any): void;
+    (e: "cancel-edit"): void;
+  }>();
+
+  // Watch for prop changes and update local refs
+  watch(() => props.userData, (newUserData) => {
+    if (newUserData) {
+      name.value = newUserData.name;
+      email.value = newUserData.email;
+      description.value = newUserData.description;
+      imageUrl.value = newUserData.image;
+    }
+  }, { immediate: true });
+
+  authStore.$onAction(({ name: actionName, args, after, onError }) => {
     after(() => {
-      if (name === "setUser") {
-        emits("save-profile");
+      if (actionName === "setUser") {
+        emits("save-profile", {
+          name: name.value,
+          email: email.value,
+          description: description.value,
+          image: imageUrl.value
+        });
       }
     });
   });
-
-  const emits = defineEmits<{
-    (e: "save-profile"): void;
-  }>();
 
   async function handleImageUpload(e: Event) {
     const file = (e.target as HTMLInputElement).files?.[0];
@@ -157,22 +200,22 @@
       isSaving.value = true;
       saveSuccess.value = false;
       
-      const user = {
-        objectID: authStore.id,
+      const updatedUser = {
+        objectID: props.userData?.objectID || authStore.id,
         name: name.value,
         email: email.value,
         description: description.value,
         image: imageUrl.value,
       };
       
-      await authStore.updateUser(user);
+      await authStore.updateUser(updatedUser);
       
       saveSuccess.value = true;
       
       // Auto-close after successful save
       setTimeout(() => {
         saveSuccess.value = false;
-        emits("save-profile");
+        emits("save-profile", updatedUser);
       }, 1000);
       
     } catch (error) {

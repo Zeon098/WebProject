@@ -46,7 +46,7 @@
             />
             <profile-editor 
               v-else 
-              @save-profile="() => { edit = false; showToast('Profile updated successfully!'); }"
+              @save-profile="handleSaveProfile"
               @cancel-edit="edit = false"
               :user-data="userData"
             />
@@ -86,6 +86,7 @@
     <profile-addhome 
       v-if="showAddHome" 
       @close="handleCloseAddHome" 
+      @property-added="handlePropertyAdded"
     />
 
     <!-- Success Toast -->
@@ -161,8 +162,13 @@
     }
   }
 
-  // Handle close add home modal
+  // Handle close add home modal (without success)
   function handleCloseAddHome() {
+    showAddHome.value = false;
+  }
+
+  // Handle property added successfully
+  function handlePropertyAdded() {
     showAddHome.value = false;
     homeRefreshKey.value++;
     showToast('Property added successfully!');
